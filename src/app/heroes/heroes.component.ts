@@ -1,27 +1,29 @@
-import { Component, OnInit} from '@angular/core';
-import { Hero } from '../hero';
-import { HEROES } from '../mock-heroes';
+import { Component, OnInit } from "@angular/core";
+import { Hero } from "../hero";
+import { HEROES } from "../mock-heroes";
+import { HeroService } from "../hero.service";
 @Component({
-  selector: 'app-heroes',
-  templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.css']
+	selector: "app-heroes",
+	templateUrl: "./heroes.component.html",
+	styleUrls: ["./heroes.component.css"],
 })
 export class HeroesComponent implements OnInit {
+	selectedHero?: Hero;
+	onSelect(hero: Hero): void {
+		if (this.selectedHero == hero) {
+			this.selectedHero = undefined;
+		} else {
+			this.selectedHero = hero;
+		}
+	}
 
-  selectedHero?: Hero;
-  onSelect(hero: Hero): void {
-    if (this.selectedHero == hero) {
-      this.selectedHero = undefined
-    } else {
-      this.selectedHero = hero
-    }
-  }
+	heroes: Hero[] = [];
 
-  heroes = HEROES
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+	constructor(private heroService: HeroService) {}
+	getHeroes() {
+		this.heroes = this.heroService.getHeroes();
+	}
+	ngOnInit(): void {
+		this.getHeroes();
+	}
 }
