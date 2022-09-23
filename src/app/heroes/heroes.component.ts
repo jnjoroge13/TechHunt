@@ -10,7 +10,7 @@ export class HeroesComponent implements OnInit {
 
   selectedHero?: Hero;
   onSelect(hero: Hero): void {
-    if (this.selectedHero === hero) {
+    if (this.selectedHero == hero) {
       this.selectedHero = undefined
     } else {
       this.selectedHero = hero
